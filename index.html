@@ -498,7 +498,7 @@ ul.list li::before { content: ""; position: absolute; left: 0; top: .5em; width:
           <dl class="figs" data-a>
             <div><dt data-count="771601">771 601</dt><dd>lignes de données traitées</dd></div>
             <div><dt>3</dt><dd>langages data : SQL, Python, DAX</dd></div>
-            <div><dt data-count="4">4</dt><dd>démos en ligne et 4 pages Power BI</dd></div>
+            <div><dt data-count="3">3</dt><dd>démos en ligne et 4 pages Power BI</dd></div>
           </dl>
         </div>
       </section>
@@ -522,8 +522,8 @@ ul.list li::before { content: ""; position: absolute; left: 0; top: .5em; width:
           </ol>
           <div class="stack" data-a>
             <div><span>Langage</span><ul class="chips"><li>SQL</li><li>PostgreSQL</li></ul></div>
-            <div><span>Techniques</span><ul class="chips"><li>Jointures</li><li>GROUP BY / HAVING</li><li>CTE</li><li>Fenêtres</li><li>Regex</li></ul></div>
-            <div><span>Outils</span><ul class="chips"><li>pgAdmin 4</li><li>Hugging Face</li></ul></div>
+            <div><span>Techniques</span><ul class="chips"><li>Jointures</li><li>GROUP BY / HAVING</li><li>Regex</li><li>Transactions</li></ul></div>
+            <div><span>Outils</span><ul class="chips"><li>pgAdmin 4</li><li>VS Code</li></ul></div>
           </div>
           <p class="note concl" data-a><b>Conclusion métier :</b> la table clients concentre le risque (16 clients sur 25 en anomalie). Priorité : contraintes d'unicité et de format dès la saisie.</p>
         </div>
@@ -543,12 +543,11 @@ ul.list li::before { content: ""; position: absolute; left: 0; top: .5em; width:
           </figure>
           <ul class="list" data-a>
             <li>Doublon Marie Dupont trouvé sur nom, prénom et naissance, car ses deux emails diffèrent.</li>
-            <li>4 téléphones mal formatés (espaces, tirets, +33) ramenés au format 0XXXXXXXXX.</li>
+            <li>Sa commande est rattachée au client conservé avant la suppression, pour ne pas créer de commande orpheline.</li>
           </ul>
-          <p class="note" data-a><b>Limite :</b> base de 110 lignes, seuil de prix aberrant fixé à 5 fois la médiane. Suite : ajouter des clés étrangères et des contraintes CHECK pour bloquer ces erreurs à la source.</p>
+          <p class="note" data-a><b>Limite :</b> base de 110 lignes, prix aberrant hors de 1 à 100 €, 17 prix de ligne à vérifier (erreur ou remise ?). Suite : ajouter des clés étrangères et des contraintes CHECK pour bloquer ces erreurs à la source.</p>
           <div class="links" data-a>
-            <a href="https://asaphs18-medicareplus.hf.space/" target="_blank" rel="noopener">Démo ↗</a>
-            <a class="alt" href="https://github.com/asaphmbere18-hub/medicareplus-audit-bdd" target="_blank" rel="noopener">Code SQL</a>
+            <a href="https://github.com/asaphmbere18-hub/medicareplus-audit-bdd" target="_blank" rel="noopener">Code SQL</a>
           </div>
         </div>
       </section>
@@ -927,16 +926,16 @@ ul.list li::before { content: ""; position: absolute; left: 0; top: .5em; width:
     return hbars({
       aria: 'Part des lignes avec au moins une anomalie, par table', labelW: 122, row: 18, max: 100,
       labels: ['Clients', 'Produits', 'Commandes', 'Lignes de commande'],
-      values: [64, 35, 10, 2], highlight: 0,
+      values: [64, 20, 10, 41], highlight: 0,
       vfmt: function (v) { return v + ' %'; },
-      tips: ['16 clients sur 25', '7 produits sur 20', '2 commandes sur 21', '1 ligne sur 44']
+      tips: ['16 clients sur 25', '4 produits sur 20 (prix, stock)', '2 commandes sur 21', '18 lignes sur 44']
     });
   };
   C.sqlAnomalies = function () {
     return hbars({
-      aria: 'Anomalies détectées par contrôle', labelW: 150, row: 13, max: 5,
-      labels: ['Téléphones mal formatés', 'Emails manquants', 'Emails mal formatés', 'Codes postaux invalides', 'Prix hors fourchette', 'Prénoms manquants', 'Dates de naissance', 'Stocks négatifs', 'Produits périmés', 'Doublon client', 'Commande sans client', 'Ligne sans produit', 'Écart de montant'],
-      values: [4, 3, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1]
+      aria: 'Anomalies détectées par contrôle', labelW: 150, row: 12.2, max: 17,
+      labels: ['Prix de ligne incohérent', 'Téléphones mal formatés', 'Emails manquants', 'Emails mal formatés', 'Codes postaux invalides', 'Prénoms manquants', 'Dates de naissance', 'Stocks négatifs', 'Prix hors fourchette', 'Téléphone manquant', 'Doublon client', 'Commande sans client', 'Ligne sans produit', 'Écart de montant'],
+      values: [17, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1]
     });
   };
   C.peaks = function () {
