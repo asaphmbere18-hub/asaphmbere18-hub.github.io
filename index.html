@@ -624,7 +624,7 @@ ul.list li::before { content: ""; position: absolute; left: 0; top: .5em; width:
             <div><span>Librairies</span><ul class="chips"><li>Pandas</li><li>NumPy</li><li>Openpyxl</li></ul></div>
             <div><span>Outils</span><ul class="chips"><li>Google Colab</li><li>Hugging Face</li></ul></div>
           </div>
-          <p class="note concl" data-a><b>Conclusion métier :</b> sans correction, les visites étaient surévaluées de 30 % (273 420 contre 209 973). La pointe est dispersée (5 centres sur 33 à 14 h) : planifier centre par centre.</p>
+          <p class="note concl" data-a><b>Conclusion métier :</b> sans correction, les visites étaient surévaluées de 30 % (273 420 contre 209 972). La pointe est dispersée (5 centres sur 33 à 14 h) : planifier centre par centre.</p>
         </div>
       </section>
 
@@ -637,11 +637,11 @@ ul.list li::before { content: ""; position: absolute; left: 0; top: .5em; width:
             <div class="plot" data-chart="peaks"></div>
           </figure>
           <figure class="chart" data-a>
-            <figcaption><b>Anomalies détectées pendant le nettoyage</b><span>23 erreurs isolées sur plus de 229 000 lignes</span></figcaption>
+            <figcaption><b>Anomalies détectées pendant le nettoyage</b><span>19 signalements sur plus de 229 000 lignes</span></figcaption>
             <div class="plot" data-chart="anomalies"></div>
           </figure>
           <ul class="list" data-a>
-            <li>La jointure brute créait 273 420 lignes : les KPI sont calculés sur les 209 973 visites réelles.</li>
+            <li>La jointure brute créait 273 420 lignes : les KPI sont calculés sur les 209 972 visites réelles.</li>
             <li>Les 36-50 ans forment le premier segment (2 336 membres).</li>
           </ul>
           <p class="note" data-a><b>Limite :</b> données d'exercice à la fréquentation très homogène, et surface ne veut pas dire capacité. Suite : un tableau de bord Power BI branché sur l'export.</p>
@@ -903,13 +903,13 @@ ul.list li::before { content: ""; position: absolute; left: 0; top: .5em; width:
   C.ages = function () {
     return vbars({
       aria: "Membres par tranche d'âge", h: 118, padT: 16, max: 3000, ticks: 3,
-      labels: ['16-25', '26-35', '36-50', '51-65', '65 +'], series: [{ values: [1148, 1464, 2344, 2210, 1331] }],
+      labels: ['16-25', '26-35', '36-50', '51-65', '65 +'], series: [{ values: [1075, 1463, 2336, 2228, 1395] }],
       valueLabels: true, highlight: 2, slotGap: 22, tipLabel: function (i) { return ['16-25', '26-35', '36-50', '51-65', '65 +'][i] + ' ans'; }
     });
   };
   // Fitness : visites par heure d'arrivée (6 h à 21 h)
   C.hours = function () {
-    var vals = [13095, 13110, 13176, 13239, 13162, 13225, 13083, 12931, 13046, 13297, 12995, 13338, 12979, 13088, 13132, 13075];
+    var vals = [13095, 13110, 13176, 13239, 13162, 13225, 13083, 12931, 13046, 13296, 12995, 13338, 12979, 13088, 13132, 13075];
     var labels = vals.map(function (_, i) { return (i + 6) + 'h'; });
     return vbars({ aria: "Visites selon l'heure d'arrivée", h: 132, padT: 10, max: 15000, ticks: 3, labels: labels, series: [{ values: vals }], highlight: 11, xEvery: 3, tipLabel: function (i) { return (i + 6) + ' h'; } });
   };
@@ -917,8 +917,8 @@ ul.list li::before { content: ""; position: absolute; left: 0; top: .5em; width:
   C.anomalies = function () {
     return hbars({
       aria: 'Anomalies détectées par contrôle', labelW: 150, row: 13.5, max: 6,
-      labels: ['Codes postaux invalides', 'Visites orphelines', 'Durées < 5 ou > 300 min', 'Prix négatif ou 9 999,99 €', 'Premium sous 30 €', 'Moins de 16 ans', 'Naissance hors 1900-2024', 'Emails en double', 'Fin avant début', 'Sortie avant entrée'],
-      values: [5, 3, 3, 2, 2, 2, 2, 2, 1, 1]
+      labels: ['Codes postaux invalides', 'Visites orphelines', 'Prix hors tarif de la formule', 'Durées < 5 ou > 300 min', 'Moins de 16 ans', 'Naissance hors 1900-2024', 'Emails en double', 'Fin avant début', 'Sortie avant entrée'],
+      values: [3, 3, 3, 2, 2, 2, 2, 1, 1]
     });
   };
 
